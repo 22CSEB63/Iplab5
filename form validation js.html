@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <script>
+        window.onload = function() {
+            const registerForm = document.getElementById("registerForm");
+
+            registerForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+                const email = document.getElementById("email").value;
+                const phone = document.getElementById("phone").value;
+                const zipCode = document.getElementById("zipCode").value;
+                const about = document.getElementById("about").value;
+                const gender = document.querySelector('input[name="gender"]:checked');
+                const language = document.querySelectorAll('input[name="language"]:checked');
+
+                if (username === "") {
+                    alert("Please enter a username.");
+                    return;
+                }
+
+                if (password === "") {
+                    alert("Please enter a password.");
+                    return;
+                }
+
+                if (password.length < 6) {
+                    alert("Password must be at least 6 characters long.");
+                    return;
+                }
+
+                if (email === "") {
+                    alert("Please enter an email address.");
+                    return;
+                }
+
+                // Simple email validation using regular expression
+                const emailRegex = /^\S+@\S+\.\S+$/;
+                if (!emailRegex.test(email)) {
+                    alert("Please enter a valid email address.");
+                    return;
+                }
+
+                if (phone === "") {
+                    alert("Please enter a phone number.");
+                    return;
+                }
+
+                // Simple phone number validation allowing only digits
+                if (!/^\d+$/.test(phone)) {
+                    alert("Please enter a valid phone number.");
+                    return;
+                }
+
+                if (phone.length !== 10) {
+                    alert("Phone number must be 10 digits long.");
+                    return;
+                }
+
+                if (zipCode === "") {
+                    alert("Please enter a zip code.");
+                    return;
+                }
+
+                if (isNaN(zipCode) || zipCode.length !== 5) {
+                    alert("Please enter a valid 5-digit zip code.");
+                    return;
+                }
+
+                if (about === "") {
+                    alert("Please enter something about yourself.");
+                    return;
+                }
+
+                if (!gender) {
+                    alert("Please select a gender.");
+                    return;
+                }
+
+                if (language.length === 0) {
+                    alert("Please select at least one language.");
+                    return;
+                }
+
+                // If all validations pass, the form can be submitted
+                alert("Form submitted successfully!");
+                // You can add code here to submit the form to the server
+            });
+        };
+    </script>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form id="registerForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}"><br><br>
+        
+        <label for="zipCode">Zip Code:</label>
+        <input type="text" id="zipCode" name="zipCode" required><br><br>
+        
+        <label for="about">About:</label><br>
+        <textarea id="about" name="about" rows="4" cols="50" required></textarea><br><br>
+        
+        <label>Gender:</label><br>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label><br>
+        <input type="radio" id="other" name="gender" value="other">
+        <label for="other">Other</label><br><br>
+        
+        <label>Languages:</label><br>
+        <input type="checkbox" id="english" name="language" value="english">
+        <label for="english">English</label><br>
+        <input type="checkbox" id="spanish" name="language" value="spanish">
+        <label for="spanish">Spanish</label><br>
+        <input type="checkbox" id="french" name="language" value="french">
+        <label for="french">French</label><br><br>
+        
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
